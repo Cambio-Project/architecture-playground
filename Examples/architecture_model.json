@@ -41,11 +41,6 @@
           },
           "dependencies": [
             {
-              "service": "frontend",
-              "operation": "getUsers",
-              "probability": 1.0
-            },
-            {
               "service": "users",
               "operation": "authentication",
               "probability": 1.0

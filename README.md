@@ -10,8 +10,8 @@
     - finds cyclic dependencies 
 - Can export the architecture to a d3 visualization
 
-![Blank](https://github.com/Cambio-Project/architecture-playground/workflows/test.yml/badge.svg)
-![Blank](https://github.com/Cambio-Project/architecture-playground/workflows/test_misim.yml/badge.svg)
-![Blank](https://github.com/Cambio-Project/architecture-playground/workflows/deploy_misim.yml/badge.svg)
+![Blank](https://github.com/Cambio-Project/architecture-playground/.github/workflows/test.yml/badge.svg)
+![Blank](https://github.com/Cambio-Project/architecture-playground/.github/workflows/test_misim.yml/badge.svg)
+![Blank](https://github.com/Cambio-Project/architecture-playground/.github/workflows/deploy_misim.yml/badge.svg)
 
 [Deployed MiSim Architecture](https://cambio-project.github.io/architecture-playground/graph.html)
