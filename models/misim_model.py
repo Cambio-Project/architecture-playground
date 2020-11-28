@@ -5,20 +5,11 @@ from typing import IO, Union, Dict, Any
 from models.model import IModel, UnknownOperation, WrongFormatException
 from models.operation import Operation
 from models.service import Service
-from util.log import tb
 
 
 class MiSimModel(IModel):
     def __init__(self, source: Union[str, IO] = None):
-        super().__init__(self.__class__.__name__)
-
-        if source:
-            try:
-                if not self.read(source):
-                    print('Model was not read successful')
-            except BaseException as e:
-                print(tb(e))
-                print('Something went wrong')
+        super().__init__(self.__class__.__name__, source)
 
     # Private
 

@@ -64,7 +64,7 @@ class Architecture:
 
         return valid, stack
 
-    def d3_graph(self) -> str:
+    def d3_graph(self, pretty: bool = False) -> str:
         result = {'nodes': [], 'links': []}
 
         for n_id, n in self._graph.nodes.items():
@@ -80,4 +80,6 @@ class Architecture:
                 'target': e.target.id
             })
 
-        return json.dumps(result, indent=2)
+        if pretty:
+            return json.dumps(result, indent=2)
+        return json.dumps(result)
