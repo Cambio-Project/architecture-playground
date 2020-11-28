@@ -1,8 +1,9 @@
-from typing import Union, Dict, Tuple, List
+from typing import Union, Dict, Tuple, List, Any
 from typing.io import IO
 
 from models.operation import Operation
 from models.service import Service
+from util.log import tb
 
 
 class NoDependenciesException(BaseException):
@@ -45,20 +46,40 @@ class IModel:
     IModel provides a validation method that checks for validity of the model.
     This validation checks the semantic of the model.
     """
-    def __init__(self, model_type: str):
+    def __init__(self, model_type: str, source: Union[str, IO] = None):
         self._model_type = model_type
         self._services = {}
+        self._valid = False
+
+        if source:
+            try:
+                if not self.read(source):
+                    print('Model was not read successful')
+            except BaseException as e:
+                print(tb(e))
+                print('Something went wrong')
 
     def __iter__(self):
         return iter(self._services)
 
     @property
-    def model(self) -> str:
+    def type(self) -> str:
         return self._model_type
 
     @property
     def services(self) -> Dict[str, Service]:
         return self._services
+
+    @property
+    def valid(self) -> bool:
+        return self._valid
+
+    # Private
+
+    def _parse(self, model: Dict[str, Any]) -> bool:
+        raise NotImplementedError('_parse() method must be implemented!')
+
+    # Public
 
     def validate(self, check_everything=False) -> Tuple[bool, List[BaseException]]:
         valid = True
@@ -93,6 +114,8 @@ class IModel:
         except BaseException as e:
             stack.append(e)
             return False,  stack
+
+        self._valid = valid
         return valid, stack
 
     def print(self):
