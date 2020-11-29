@@ -1,4 +1,4 @@
-name: Test MiSim
+name: Model Tests
 
 on: [push, pull_request]
 
@@ -23,4 +23,5 @@ jobs:
 
     - name: Run Test
       run: |
-        python model2arch.py --misim ./Examples/architecture_model.json --validate-model --validate-architecture
+        python model2arch.py --misim ./resources/models/books_model.json -vm -va --d3 temp.js
+        python model2arch.py --jaeger ./resources/models/trace.json -vm -va --d3 temp.js

@@ -22,7 +22,7 @@ if __name__ == '__main__':
                         help="Validates the architecture.")
 
     # Other
-    parser.add_argument('--d3-graph', dest='d3', type=str, nargs=1, required=False,
+    parser.add_argument('-d3', '--d3-graph', dest='d3', type=str, nargs=1, required=False,
                         help="Stores a d3 graph to the specified location.")
 
     args = parser.parse_args()

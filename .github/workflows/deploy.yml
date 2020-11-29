@@ -1,9 +1,9 @@
-name: Run Tests
+name: Deploy
 
 on: [push, pull_request]
 
 jobs:
-  test:
+  deploy:
 
     runs-on: ubuntu-latest
 
@@ -21,6 +21,10 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Run Tests
-      run: |
-        python test.py
+    - name: Run Deployment
+      uses: JamesIves/github-pages-deploy-action@3.7.1
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BRANCH: gh-pages
+        FOLDER: .
+        CLEAN: true
