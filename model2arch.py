@@ -3,6 +3,8 @@ import argparse
 from models.architecture import Architecture
 from models.jaeger_trace import JaegerTrace
 from models.misim_model import MiSimModel
+from models.zipkin_trace import ZipkinTrace
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Converts a model into an architecture representation.')
@@ -14,6 +16,8 @@ if __name__ == '__main__':
                         help='Converts a MiSim model. Takes the architecture model and an optional experiment model.')
     parser.add_argument('--jaeger', dest='jaeger', type=str, nargs=1, required=False,
                         help='Converts a Jager trace.')
+    parser.add_argument('--zipkin', dest='zipkin', type=str, nargs=1, required=False,
+                        help='Converts a Zipkin trace.')
 
     # Validation
     parser.add_argument('-vm', '--validate-model', dest='validate_model', action='store_true',
@@ -22,7 +26,7 @@ if __name__ == '__main__':
                         help="Validates the architecture.")
 
     # Other
-    parser.add_argument('-d3', '--d3-graph', dest='d3', type=str, nargs=1, required=False,
+    parser.add_argument('-d3', '--d3-graph', dest='d3', type=str, nargs='+', required=False,
                         help="Stores a d3 graph to the specified location.")
 
     args = parser.parse_args()
@@ -35,6 +39,8 @@ if __name__ == '__main__':
         model = MiSimModel(args.misim[0])
     elif args.jaeger:
         model = JaegerTrace(args.jaeger[0])
+    elif args.zipkin:
+        model = ZipkinTrace(args.zipkin[0])
 
     if model:
         arch = Architecture(model)
@@ -55,9 +61,32 @@ if __name__ == '__main__':
                 '' if not exceptions else '\n- ' + '\n- '.join(map(str, exceptions))))
 
     if args.d3:
+
+        stop = False
+
+        if not model:
+            print('No model!')
+            stop = True
+        if not arch:
+            print('No architecture!')
+            stop = True
+
+        if stop:
+            exit(1)
+
         handle = open(args.d3[0], 'w+')
+
+        # Pretty
+        pretty_print = False
+        if args.d3[1]:
+            pretty_print = True
+
+        # JavaScript
         if args.d3[0].endswith('.js'):
-            handle.write('let graph=' + arch.d3_graph() + ';')
+            content = 'let graph=' + arch.d3_graph(pretty_print) + ';'
+        # Json
         else:
-            handle.write(arch.d3_graph(True))
+            content = arch.d3_graph(pretty_print)
+
+        handle.write(content)
         handle.close()
