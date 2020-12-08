@@ -1,3 +1,0 @@
-networkx>=2.5
-d3graph
-pandas
