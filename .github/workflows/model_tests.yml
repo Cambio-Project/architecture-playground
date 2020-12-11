@@ -23,6 +23,6 @@ jobs:
 
     - name: Run Test
       run: |
-        python model2arch.py --misim ./resources/models/misim_books.json -vm -va -em -d3 temp.js True
-        python model2arch.py --jaeger ./resources/models/jaeger_trace_hotrod.json -vm -va -em -d3 temp.js False
-        python model2arch.py --zipkin ./resources/models/zipkin_trace_brave.json -vm -va -em -d3 temp.js
+        python ./source/model2arch.py --misim ./resources/models/misim_books.json -vm -va -em -d3 temp.js True
+        python ./source/model2arch.py --jaeger ./resources/models/jaeger_trace_hotrod.json -vm -va -em -d3 temp.js False
+        python ./source/model2arch.py --zipkin ./resources/models/zipkin_trace_brave.json -vm -va -em -d3 temp.js
