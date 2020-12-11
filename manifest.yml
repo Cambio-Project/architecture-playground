@@ -1,0 +1,7 @@
+---
+applications:
+- name: archex
+  route:
+  - eu-gb.cf.appdomain.cloud
+  memory: 128M
+  timeout: 300
