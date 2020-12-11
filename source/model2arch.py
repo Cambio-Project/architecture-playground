@@ -7,6 +7,7 @@ from models.misim_model import MiSimModel
 from models.zipkin_trace import ZipkinTrace
 from util.parse import bool_from_string
 
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Converts a model into an architecture representation.')
 

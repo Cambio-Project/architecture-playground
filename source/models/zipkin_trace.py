@@ -22,8 +22,8 @@ class ZipkinTrace(IModel):
         # Store all services with their respective endpoint ip's
         for span in model:
             span_ids[span['id']] = span
-            local = span['localEndpoint']
-            remote = span['remoteEndpoint']
+            local = span['localEndpoint'] if 'localEndpoint' in span else {}
+            remote = span['remoteEndpoint'] if 'remoteEndpoint' in span else {}
 
             source_name = local['serviceName'] if 'serviceName' in local else ''
             target_name = remote['serviceName'] if 'serviceName' in remote else ''
@@ -42,7 +42,7 @@ class ZipkinTrace(IModel):
 
         # Add operations
         for span in model:
-            local = span['localEndpoint']
+            local = span['localEndpoint'] if 'localEndpoint' in span else {}
             if local['ipv4'] in service_ips:
                 service = service_ips[local['ipv4']]
             elif 'serviceName' in local and local['serviceName'] in self._services:
@@ -66,7 +66,6 @@ class ZipkinTrace(IModel):
                 parent_id = span['parentId']
                 parent_span = span_ids[parent_id]
                 local = parent_span['localEndpoint']
-                remote = parent_span['remoteEndpoint']
                 parent_service_name = service_ips[local['ipv4']]
                 parent_operation_name = parent_span['name']
 
