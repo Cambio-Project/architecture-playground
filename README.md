@@ -1,3 +1,7 @@
+> Deprecated! Project has been moved to hazard-elicitation.
+
+
+
 # Playground for architecture extraction
 
 ## model2arch.py
